@@ -5,7 +5,7 @@ body {
     font-size:12px;
 }
 
-#timestamp {
+#timeDisplay {
     font-family: sans-serif, 'Conv_Crysta';
     font-size: 80px;
     text-align: right;
@@ -14,6 +14,14 @@ body {
 
 .buttons_frame {
     position: relative;
+}
+
+.click_disabled {
+    color: #999;
+}
+
+.click_enabled {
+    color: #fff;
 }
 
 .control_button {

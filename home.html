@@ -1,6 +1,8 @@
-<div id="timestamp">{{currentTime}}</div>
+<div id="timeDisplay">{{timeDisplay}}</div>
+
+<div id="state">state: {{state}}</div>
 
 <div class="buttons_frame">
-  <span id="btn_start" class="control_button">Start</span>
-  <span id="btn_lap" class="control_button">Lap</span>
+  <span id="btn_start" class="control_button" ng-click="startStop()">{{btnLabel}}</span>
+  <span id="btn_lap" class="control_button click_disabled">Lap</span>
 </div>

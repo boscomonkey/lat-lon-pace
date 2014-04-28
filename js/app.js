@@ -63,19 +63,44 @@ window.app = angular.module('app', ['ngRoute'])
             return String(min) + ':' + ss + '.' + cc;
         };
 
-        var beginTime = new Date();
+        var timerStart = function() {
+            var startTime = new Date();
 
-        $scope.currentTime = '00:00.00';
+            $scope.timerPromise = $interval(
+                function() {
+                    var currTime = new Date();
+                    var incremental = currTime - startTime;
 
-        $interval(
-            function() {
-                var diff = new Date() - beginTime;
-                var str = diffTime(diff);
+                    startTime = currTime;
+                    $scope.elapsedTime += incremental;
+                    $scope.timeDisplay = diffTime($scope.elapsedTime);
+                },
+                10
+            );
+        };
 
-                $scope.currentTime = str;
-            },
-            10
-        );
+        var timerStop = function() {
+            $interval.cancel($scope.timerPromise);
+        };
+
+        $scope.elapsedTime = 0;
+        $scope.timeDisplay = '00:00.00';
+
+        $scope.state = 'begin';
+        $scope.btnLabel = 'Start';
+
+        $scope.startStop = function() {
+            if ('begin' == $scope.state) {
+                $scope.btnLabel = 'Stop';
+                $scope.state = 'running';
+                timerStart();
+            }
+            else if ('running' == $scope.state) {
+                $scope.btnLabel = 'Start';
+                $scope.state = 'begin';
+                timerStop();
+            }
+        };
 
     })
 
